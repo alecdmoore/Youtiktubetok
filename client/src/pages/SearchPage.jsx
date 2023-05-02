@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Box, useMediaQuery } from "@mui/material";
-import { useSelector } from "react-redux";
+import { Box, Divider, useMediaQuery } from "@mui/material";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import MemberWidget from "../widgets/MemberWidget";
+
+import WidgetWrapper from "../components/WidgetWrapper";
 
 const SearchPage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
+
   let { value } = useParams();
   const [results, setResults] = useState([]);
 
@@ -20,7 +23,6 @@ const SearchPage = () => {
       });
       const result = await response.json();
       setResults(result);
-      console.log(result[0]._id);
     };
 
     handleSearch();
@@ -37,12 +39,21 @@ const SearchPage = () => {
       >
         <Box
           // flexBasis={isNonMobileScreens ? "70%" : undefined}
+          width={isNonMobileScreens ? "50%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
           <h1>Middle</h1>
-          {results.map((person) => (
-            <MemberWidget member={person} user={user} />
-          ))}
+          <Divider sx={{ margin: "1.25rem 0 1.25rem 0" }} />
+          <WidgetWrapper>
+            {results.map((person) => (
+              <MemberWidget
+                key={person._id}
+                member={person}
+                user={user}
+                addRemove={true}
+              />
+            ))}
+          </WidgetWrapper>
         </Box>
       </Box>
     </Box>

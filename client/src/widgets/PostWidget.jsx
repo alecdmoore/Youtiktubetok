@@ -24,6 +24,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import YouTube from "../components/YouTube";
 import TikTok from "../components/TikTok";
+import MemberWidget from "./MemberWidget";
 import { setPosts } from "../state/authSlice";
 
 const PostWidget = ({
@@ -133,6 +134,7 @@ const PostWidget = ({
         // subtitle={location}
         userPicturePath={userPicturePath}
       />
+
       <Typography color={main} sx={{ mt: "1rem" }}>
         {description}
       </Typography>
@@ -214,7 +216,6 @@ const PostWidget = ({
           <Divider />
         </Box>
       )}
-
       <Modal
         open={openModal}
         onClose={() => setOpenModal(false)}
