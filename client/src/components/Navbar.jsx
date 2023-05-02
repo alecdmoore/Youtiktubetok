@@ -62,7 +62,7 @@ const Navbar = () => {
             },
           }}
         >
-          Sociopedia
+          YouTikTubeTok
         </Typography>
         {isNonMobileScreens && (
           <FlexBetween
@@ -72,7 +72,7 @@ const Navbar = () => {
             padding="0.1rem 1.5rem"
           >
             <InputBase
-              placeholder="Search..."
+              placeholder="Search People..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />

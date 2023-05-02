@@ -153,26 +153,49 @@ const removePost = async (req, res) => {
 const addRemoveMember = async (req, res) => {
   try {
     const collectionId = req.params.id;
-    const { memberId } = req.body;
+    const { memberId, picturePath, firstName, lastName } = req.body;
     //find collection
     const collection = await Collection.findById(collectionId);
     //authorize user
-    if (!collection.members.includes(req.user.id)) {
+    if (
+      !collection.members.some(
+        (member) => member._id.toString() === req.user.id
+      )
+    ) {
       res.json({ message: "You are not authorized" });
-    }
-    //find user
-    const user = await User.findById(memberId);
-    // check whether currently member
-    if (collection.members.includes(user._id.toString())) {
-      collection.members = collection.members.filter(
-        (members) => members != memberId
-      );
-      await collection.save();
     } else {
-      collection.members.push(user._id);
-      await collection.save();
+      //find user
+      const user = await User.findById(memberId);
+      //TODO
+      if (collection.members.find((member) => member._id === memberId)) {
+        //replace the current collection with the response(data) and dispatch the state
+        const index = collection.members.findIndex(
+          (member) => member._id === memberId
+        );
+        const newMembers = [
+          ...collection.members.slice(0, index),
+          ...collection.members.slice(index + 1),
+        ];
+
+        collection.members = newMembers;
+        await collection.save();
+        user.collections = user.collections.filter(
+          (collection) => collection.toString() !== collectionId
+        );
+        await user.save();
+      } else {
+        collection.members.push({
+          _id: memberId,
+          firstName,
+          lastName,
+          picturePath,
+        });
+        await collection.save();
+        user.collections.push(collection._id);
+        await user.save();
+      }
+      res.status(201).json(collection);
     }
-    res.status(201).json(collection);
   } catch (err) {
     res.status(409).json({ message: err.message });
   }
@@ -224,13 +247,21 @@ const deleteCollection = async (req, res) => {
 const changeTitle = async (req, res) => {
   try {
     const collection = await Collection.findById(req.params.id);
-    if (!collection.members.includes(req.user.id)) {
-      res.json({ message: "You are not authorized" });
+    // collection.members.find((member) => member._id === req.user.id)
+    console.log(collection.members);
+    if (
+      !collection.members.find(
+        (member) => member._id.toString() === req.user.id
+      )
+    ) {
+      res.json({
+        message: `You are not authorized req.user.id ${req.user.id}`,
+      });
+    } else {
+      collection.title = req.body.title;
+      await collection.save();
+      res.status(201).json(collection);
     }
-    collection.title = req.body.title;
-    await collection.save();
-    // await Collection.deleteOne({ _id: req.params.id });
-    res.status(201).json(collection);
   } catch (err) {
     res.status(409).json({ message: err.message });
   }
