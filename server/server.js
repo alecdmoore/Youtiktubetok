@@ -44,14 +44,19 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // *** ROUTES ***
-app.post("/auth/register", upload.single("picture"), register);
-app.patch("/collections/:id", verifyToken, upload.single("picture"), addPost);
-app.get("/search/:value", verifyToken, search);
+app.post("/api/auth/register", upload.single("picture"), register);
+app.patch(
+  "/api/collections/:id",
+  verifyToken,
+  upload.single("picture"),
+  addPost
+);
+app.get("/api/search/:value", verifyToken, search);
 
-app.use("/users", userRoutes);
-app.use("/auth", authRoutes);
-app.use("/posts", postRoutes);
-app.use("/collections", collectionRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/posts", postRoutes);
+app.use("/api/collections", collectionRoutes);
 
 // *** MONGOOSE & SERVER SETUP ***
 mongoose

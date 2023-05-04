@@ -33,7 +33,7 @@ const MemberWidget = ({ member, addRemove }) => {
 
     //router.patch("/:id/:friendId", verifyToken, addRemoveFriend);
     const response = await fetch(
-      `http://localhost:5000/users/${user._id}/${member._id}`,
+      `http://localhost:5000/api/users/${user._id}/${member._id}`,
       {
         method: "PATCH",
         headers: { Authorization: `Bearer ${token}` },
