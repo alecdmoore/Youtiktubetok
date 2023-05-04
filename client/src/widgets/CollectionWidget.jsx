@@ -25,6 +25,7 @@ import WidgetWrapper from "../components/WidgetWrapper";
 import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCollections } from "../state/authSlice";
+import baseURL from "../baseURL";
 
 const CollectionWidget = ({ collection }) => {
   const { palette } = useTheme();
@@ -74,7 +75,7 @@ const CollectionWidget = ({ collection }) => {
     formData.append("title", collectionName);
 
     const response = await fetch(
-      `http://localhost:5000/api/collections/${collection._id}/title`,
+      `${baseURL}/collections/${collection._id}/title`,
       {
         method: "PATCH",
         headers: { Authorization: `Bearer ${token}` },
@@ -111,7 +112,7 @@ const CollectionWidget = ({ collection }) => {
     console.log("handleDelete");
 
     const response = await fetch(
-      `http://localhost:5000/collections/${collection._id}`,
+      `${baseURL}/collections/${collection._id}`,
       {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },

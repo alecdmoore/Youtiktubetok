@@ -24,6 +24,8 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
+import baseURL from "../baseURL";
+
 const CreatePostWidget = ({ picturePath, collectionId }) => {
   const dispatch = useDispatch();
   const [isImage, setIsImage] = useState(false);
@@ -64,14 +66,11 @@ const CreatePostWidget = ({ picturePath, collectionId }) => {
       console.log(pair[0] + ": " + pair[1]);
     }
 
-    const response = await fetch(
-      `http://localhost:5000/api/collections/${collectionId}`,
-      {
-        method: "PATCH",
-        headers: { Authorization: `Bearer ${token}` },
-        body: formData,
-      }
-    );
+    const response = await fetch(`${baseURL}/collections/${collectionId}`, {
+      method: "PATCH",
+      headers: { Authorization: `Bearer ${token}` },
+      body: formData,
+    });
     const data = await response.json();
     console.log(data);
     console.log(`add post ${collectionId}`);

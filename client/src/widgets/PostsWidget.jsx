@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "../state/authSlice";
 import { useParams } from "react-router-dom";
 import PostWidget from "./PostWidget";
+import baseURL from "../baseURL";
 
 //make this into a collections widget. it will display all the collections available to the user
 
@@ -14,7 +15,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
 
   const getPosts = async () => {
     const response = await fetch(
-      `http://localhost:5000/api/collections/${collectionId}/posts`,
+      `${baseURL}/collections/${collectionId}/posts`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
@@ -26,13 +27,10 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   };
 
   const getUserPosts = async () => {
-    const response = await fetch(
-      `http://localhost:5000/api/posts/${userId}/posts`,
-      {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
+    const response = await fetch(`${baseURL}/posts/${userId}/posts`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    });
     const data = await response.json();
     dispatch(setPosts({ posts: data }));
   };

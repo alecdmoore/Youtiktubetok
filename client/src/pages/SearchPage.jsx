@@ -6,6 +6,7 @@ import Navbar from "../components/Navbar";
 import MemberWidget from "../widgets/MemberWidget";
 
 import WidgetWrapper from "../components/WidgetWrapper";
+import baseURL from "../baseURL";
 
 const SearchPage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -17,13 +18,10 @@ const SearchPage = () => {
 
   useEffect(() => {
     const handleSearch = async () => {
-      const response = await fetch(
-        `http://localhost:5000/api/search/${value}`,
-        {
-          method: "GET",
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const response = await fetch(`${baseURL}/search/${value}`, {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      });
       const result = await response.json();
       setResults(result);
     };

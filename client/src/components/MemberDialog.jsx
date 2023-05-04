@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import { blue } from "@mui/material/colors";
 import { useEffect, useState } from "react";
 import UserImage from "./UserImage";
+import baseURL from "../baseURL";
 
 const MemberDialog = (props) => {
   let { collectionId } = useParams();
@@ -47,13 +48,10 @@ const MemberDialog = (props) => {
   };
 
   const getFriends = async () => {
-    const response = await fetch(
-      `http://localhost:5000/api/users/${user._id}/friends`,
-      {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
+    const response = await fetch(`${baseURL}/users/${user._id}/friends`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    });
     const data = await response.json();
     // const filteredFriends = data.filter(
     //   (friend) =>

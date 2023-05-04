@@ -26,6 +26,7 @@ import YouTube from "../components/YouTube";
 import TikTok from "../components/TikTok";
 import MemberWidget from "./MemberWidget";
 import { setPosts } from "../state/authSlice";
+import baseURL from "../baseURL";
 
 const PostWidget = ({
   postId,
@@ -96,7 +97,7 @@ const PostWidget = ({
     // collections/:id/posts
     // router.patch("/:id/posts", verifyToken, removePost);
     const response = await fetch(
-      `http://localhost:5000/collections/${collectionId}/posts`,
+      `${baseURL}/collections/${collectionId}/posts`,
       {
         method: "PATCH",
         headers: {

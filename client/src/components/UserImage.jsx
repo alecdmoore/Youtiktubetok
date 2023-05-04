@@ -8,7 +8,11 @@ const UserImage = ({ image, size = "60px" }) => {
         width={size}
         height={size}
         alt="user"
-        src={`http://localhost:5000/assets/${image}`}
+        src={
+          process.env.NODE_ENV === "production"
+            ? `/assets/${image}`
+            : `http://localhost:5000/assets/${image}`
+        }
       />
     </Box>
   );

@@ -11,6 +11,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { useEffect } from "react";
+import baseURL from "../baseURL";
 
 const CollectionsWidget = () => {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ const CollectionsWidget = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
 
   const getCollections = async () => {
-    const response = await fetch("http://localhost:5000/api/collections", {
+    const response = await fetch(`${baseURL}/collections`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });

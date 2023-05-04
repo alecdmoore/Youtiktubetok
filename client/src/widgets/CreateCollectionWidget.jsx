@@ -5,6 +5,7 @@ import FlexBetween from "../components/FlexBetween";
 import UserImage from "../components/UserImage";
 import { InputBase, useTheme, Button } from "@mui/material";
 import { setCollections } from "../state/authSlice";
+import baseURL from "../baseURL";
 
 const CreateCollectionWidget = ({ picturePath }) => {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ const CreateCollectionWidget = ({ picturePath }) => {
     const formData = new URLSearchParams();
     formData.append("title", title);
 
-    const response = await fetch(`http://localhost:5000/api/collections`, {
+    const response = await fetch(`${baseURL}/collections`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
       body: formData,
@@ -24,13 +25,10 @@ const CreateCollectionWidget = ({ picturePath }) => {
     const result = await response.json();
     console.log(result);
 
-    const responseCollection = await fetch(
-      `http://localhost:5000/collections`,
-      {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
+    const responseCollection = await fetch(`${baseURL}/collections`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    });
     const resultCollection = await responseCollection.json();
     console.log(resultCollection);
     //TODO create redux reducers

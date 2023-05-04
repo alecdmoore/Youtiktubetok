@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { setFriends } from "../state/authSlice";
+import baseURL from "../baseURL";
 
 const MemberWidget = ({ member, addRemove }) => {
   const { palette } = useTheme();
@@ -32,13 +33,10 @@ const MemberWidget = ({ member, addRemove }) => {
     e.stopPropagation();
 
     //router.patch("/:id/:friendId", verifyToken, addRemoveFriend);
-    const response = await fetch(
-      `http://localhost:5000/api/users/${user._id}/${member._id}`,
-      {
-        method: "PATCH",
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
+    const response = await fetch(`${baseURL}/users/${user._id}/${member._id}`, {
+      method: "PATCH",
+      headers: { Authorization: `Bearer ${token}` },
+    });
     const result = await response.json();
 
     dispatch(setFriends({ friends: result }));

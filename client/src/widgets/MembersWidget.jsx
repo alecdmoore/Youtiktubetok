@@ -15,6 +15,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setCollections } from "../state/authSlice";
 import { GroupAddOutlined, GroupRemoveOutlined } from "@mui/icons-material";
 import MemberDialog from "../components/MemberDialog";
+import baseURL from "../baseURL";
 
 const MembersWidget = (props) => {
   const user = useSelector((state) => state.user);
@@ -49,7 +50,7 @@ const MembersWidget = (props) => {
       const addRemoveMembers = async () => {
         // router.patch("/:id/members", verifyToken, addRemoveMember);
         const response = await fetch(
-          `http://localhost:5000/api/collections/${props.currentCollection._id}/members`,
+          `${baseURL}/collections/${props.currentCollection._id}/members`,
           {
             method: "PATCH",
             headers: { Authorization: `Bearer ${token}` },
