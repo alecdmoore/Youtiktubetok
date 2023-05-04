@@ -48,7 +48,7 @@ const MemberDialog = (props) => {
 
   const getFriends = async () => {
     const response = await fetch(
-      `http://localhost:5000/users/${user._id}/friends`,
+      `http://localhost:5000/api/users/${user._id}/friends`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },

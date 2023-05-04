@@ -65,7 +65,7 @@ const CreatePostWidget = ({ picturePath, collectionId }) => {
     }
 
     const response = await fetch(
-      `http://localhost:5000/collections/${collectionId}`,
+      `http://localhost:5000/api/collections/${collectionId}`,
       {
         method: "PATCH",
         headers: { Authorization: `Bearer ${token}` },

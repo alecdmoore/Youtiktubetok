@@ -74,7 +74,7 @@ const CollectionWidget = ({ collection }) => {
     formData.append("title", collectionName);
 
     const response = await fetch(
-      `http://localhost:5000/collections/${collection._id}/title`,
+      `http://localhost:5000/api/collections/${collection._id}/title`,
       {
         method: "PATCH",
         headers: { Authorization: `Bearer ${token}` },

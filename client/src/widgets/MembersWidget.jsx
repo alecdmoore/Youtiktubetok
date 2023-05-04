@@ -49,7 +49,7 @@ const MembersWidget = (props) => {
       const addRemoveMembers = async () => {
         // router.patch("/:id/members", verifyToken, addRemoveMember);
         const response = await fetch(
-          `http://localhost:5000/collections/${props.currentCollection._id}/members`,
+          `http://localhost:5000/api/collections/${props.currentCollection._id}/members`,
           {
             method: "PATCH",
             headers: { Authorization: `Bearer ${token}` },

@@ -16,7 +16,7 @@ const CreateCollectionWidget = ({ picturePath }) => {
     const formData = new URLSearchParams();
     formData.append("title", title);
 
-    const response = await fetch(`http://localhost:5000/collections`, {
+    const response = await fetch(`http://localhost:5000/api/collections`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
       body: formData,

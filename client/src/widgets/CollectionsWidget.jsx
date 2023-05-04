@@ -20,7 +20,7 @@ const CollectionsWidget = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
 
   const getCollections = async () => {
-    const response = await fetch("http://localhost:5000/collections", {
+    const response = await fetch("http://localhost:5000/api/collections", {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
