@@ -10,7 +10,7 @@ const UserImage = ({ image, size = "60px" }) => {
         alt="user"
         src={
           process.env.NODE_ENV === "production"
-            ? `${process.env.IP}/uploads/${image}`
+            ? `/uploads/${image}`
             : `http://localhost:5000/assets/${image}`
         }
       />
