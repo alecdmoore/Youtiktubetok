@@ -146,7 +146,12 @@ const PostWidget = ({
           height="auto"
           alt="post"
           style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`http://localhost:5000/assets/${mediaPath}`}
+          // src={`http://localhost:5000/assets/${mediaPath}`}
+          src={
+            process.env.NODE_ENV === "production"
+              ? `/uploads/${mediaPath}`
+              : `http://localhost:5000/assets/${mediaPath}`
+          }
         />
       )}
       {mediaType == "YouTube" && <YouTube link={mediaPath} />}
