@@ -11,7 +11,7 @@ const UserImage = ({ image, size = "60px" }) => {
         src={
           process.env.NODE_ENV === "production"
             ? `/uploads/${image}`
-            : `http://localhost:5000/assets/${image}`
+            : `http://localhost:5001/assets/${image}`
         }
       />
     </Box>
